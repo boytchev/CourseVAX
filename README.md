@@ -891,25 +891,31 @@
 
 [<kbd><img src="LecturesBG/13/E1303-Centered-VR-cube.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1303-Centered-VR-cube.html)
 -->
+
 **E1304**. Двжение напред и назад в тунел.
 
 [<kbd><img src="LecturesBG/13/E1304-Tunnel.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1304-Tunnel.html)
+
 <!--
 **E1305**. Обработване на събитията на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1305-Controllers.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1305-Controllers.html)
 -->
+
 **E1306**. Задаване на потребителски образ на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1306-Controller-image.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1306-Controller-image.html)
+
 <!--
 **E1307**. Използване на фабричен 3D модел на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1307-Controller-model.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1307-Controller-model.html)
 -->
+
 **E1308**. Движение чрез контролерите.
 
 [<kbd><img src="LecturesBG/13/E1308-Controller-motion.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1308-Controller-motion.html)
+
 <!--
 **E1309**. Избиране на обекти с поглед.
 
@@ -923,20 +929,24 @@
 
 [<kbd><img src="LecturesBG/13/E1311-Intersection-point.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1311-Intersection-point.html)
 -->
+
 **E1312**. Създаване на кубове с посочване с контролер.
 
 [<kbd><img src="LecturesBG/13/E1312-Creating-cubes.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1312-Creating-cubes.html)
 
 
 ## Упражнение №13 &ndash; VR шлемове
+
 <!--
 **S1301**. Виртуален куб без диагонали.
 
 [<kbd><img src="ExercisesBG/13/S1301-No-diagonals.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1301-No-diagonals.html)
 -->
+
 **S1302**. Движение в тунел с текстура.
 
 [<kbd><img src="ExercisesBG/13/S1302-Nice-tunnel.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1302-Nice-tunnel.html)
+
 <!--
 **S1303**. Видими контролери.
 
@@ -950,6 +960,7 @@
 
 [<kbd><img src="ExercisesBG/13/S1305-Coordinate-systems.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1305-Coordinate-systems.html)
 -->
+
 **S1306**. Движение в терен с дюни.
 
 [<kbd><img src="ExercisesBG/13/S1306-The-dunes.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1306-The-dunes.html)
