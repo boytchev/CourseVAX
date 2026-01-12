@@ -7,31 +7,51 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="FirstPersonControls.js"></script>
-		<script src="GLTFLoader.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxSceneInit( );
+		<script type="module">
+			import * as THREE from "three";
+			import {FirstPersonControls} from "three/addons/controls/FirstPersonControls.js";
+			import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+			import {initScene, Pillar, renderer, object, scene, camera, ambientLight, spotLight, ground} from "vax";
+
+			initScene(animate);
+
+			object.visible = false;
 				
+			// пилони
+			for( var i=0; i<60; i++)
+			{
+				var p = new Pillar( new THREE.Vector3(THREE.MathUtils.randFloat(-100,100),THREE.MathUtils.randFloat(10,100),THREE.MathUtils.randFloat(-100,100)) );
+					p.scale.set( 0.1, 0.1, 0.1 );
+					scene.add( p );
+			}
+			
 			scene.background = new THREE.Color( 'lightgray' );
 			
 			ambientLight.color = new THREE.Color( 'white' );
 			spotLight.position.set( 0, 60, 20 );
-			spotLight.intensity = 1;
+			spotLight.intensity = 3;
 
-			const path = 'Models/sketchfab/elephant/';
+			const path = '../Models/sketchfab/elephant/';
 			
 			// навигация
-			var control = new THREE.FirstPersonControls( camera, renderer.domElement );
+			var control = new FirstPersonControls( camera, renderer.domElement );
 				control.lookSpeed = 0.1;
 				control.movementSpeed = 10;
 				
 			// зареждане на феникса
-			new THREE.GLTFLoader().load( path+'scene.gltf', objectLoaded );
+			new GLTFLoader().load( path+'scene.gltf', objectLoaded );
 				
 			var animator, phoenix;
 
@@ -75,9 +95,9 @@
 				if( animator ) animator.update( dT );
 				control.update( dT );
 				
-				camera.position.x = THREE.Math.clamp( camera.position.x, -200, 200 );
-				camera.position.y = THREE.Math.clamp( camera.position.y, 2, 100 );
-				camera.position.z = THREE.Math.clamp( camera.position.z, -200, 200 );
+				camera.position.x = THREE.MathUtils.clamp( camera.position.x, -200, 200 );
+				camera.position.y = THREE.MathUtils.clamp( camera.position.y, 2, 100 );
+				camera.position.z = THREE.MathUtils.clamp( camera.position.z, -200, 200 );
 			}
 			
 		</script>	

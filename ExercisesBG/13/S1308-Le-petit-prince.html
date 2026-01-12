@@ -7,24 +7,33 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+
+			VAX.initVR( animate );
 
 			// небе
-			scene.background = new THREE.Color(0x000010);
+			VAX.scene.background = new THREE.Color(0x000010);
 			
 			// планета
 			var planet = new THREE.Mesh(
 				new THREE.IcosahedronGeometry( 40, 7 ),
 				new THREE.MeshLambertMaterial( {color: 'brown'} )
 			);
-			scene.add( planet );
+			VAX.scene.add( planet );
 
 			// звезди - ръчно създадена геометрия
 			var points = [], point = new THREE.Vector3(),
@@ -32,8 +41,8 @@
 				
 			for (var i=0; i<5000; i++)
 			{
-				point.set( THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1), THREE.Math.randFloatSpread(1) );
-				point.setLength( THREE.Math.randFloat(400,900) );
+				point.set( THREE.MathUtils.randFloatSpread(1), THREE.MathUtils.randFloatSpread(1), THREE.MathUtils.randFloatSpread(1) );
+				point.setLength( THREE.MathUtils.randFloat(400,900) );
 				points.push( point.x, point.y, point.z );
 			}
 				
@@ -72,13 +81,13 @@
 			}
 			
 			// десен контролер
-			var rightController = renderer.xr.getController( 0 );
+			var rightController = VAX.renderer.xr.getController( 0 );
 			
 			// подвижен потребител със собствена светлина
 			var user = new THREE.Group();
-				user.add( camera, rightController );
+				user.add( VAX.camera, rightController );
 				user.position.y = 40+1.6;
-				scene.add( user );
+				VAX.scene.add( user );
 
 			var axis = new THREE.Vector3();
 			

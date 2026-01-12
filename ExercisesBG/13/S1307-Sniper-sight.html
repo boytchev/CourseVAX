@@ -7,15 +7,26 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
-			camera = new THREE.PerspectiveCamera( 30, 1, 0.5, 600 );
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+
+			VAX.initVR( animate );
+			
+			VAX.camera.fov = 30;
+			VAX.camera.updateProjectionMatrix();
 
 			// земя
 			var ground = new THREE.Mesh(
@@ -26,20 +37,20 @@
 			ground.material.polygonOffsetUnits = 2;
 			ground.material.polygonOffsetFactor = 2;
 			ground.position.set( 0, -2, 0 );
-			scene.add( ground );
+			VAX.scene.add( ground );
 
 			// мрежа от квадратчета по земята
 			var grid = new THREE.GridHelper( 300, 30, 'white', 'white' );
 				grid.material.transparent = true;
 				grid.material.opacity = 0.3;
-			scene.add( grid );
+			VAX.scene.add( grid );
 			
 			// пилони 
 			for( var i=0; i<60; i++)
 			{
-				var p = pillar( new THREE.Vector3(THREE.Math.randFloat(-100,100),THREE.Math.randFloat(10,100),THREE.Math.randFloat(-100,100)),ground.material);
+				var p = new VAX.Pillar( new THREE.Vector3(THREE.MathUtils.randFloat(-100,100),THREE.MathUtils.randFloat(10,100),THREE.MathUtils.randFloat(-100,100)),ground.material);
 					p.scale.set( 0.1, 0.1, 0.1 );
-					scene.add( p );
+					VAX.scene.add( p );
 			}
 
 			// балони (те ще могат да се избират с поглед)
@@ -55,24 +66,24 @@
 			for( var i=0; i<n; i++ )
 			{
 				var balloon = new THREE.Mesh( geometry, material );
-					balloon.position.set( THREE.Math.randFloat(-100,100), 10, THREE.Math.randFloat(-100,100) );
+					balloon.position.set( THREE.MathUtils.randFloat(-100,100), 10, THREE.MathUtils.randFloat(-100,100) );
 					allBalloons.push( balloon );
 			}
-			scene.add( ...allBalloons );
+			VAX.scene.add( ...allBalloons );
 			
 			// десен контролер
 			var move = false, // дали е натиснат десният спусък
-				rightController = renderer.xr.getController( 0 );
+				rightController = VAX.renderer.xr.getController( 0 );
 				rightController.addEventListener( 'selectstart', function(){ move = true; } );
 				rightController.addEventListener( 'selectend', function(){ move = false; } );
 			
 			// подвижен потребител
 			var user = new THREE.Group();
-				user.add( camera );
-				scene.add( user );
+				user.add( VAX.camera );
+				VAX.scene.add( user );
 
 			// мерник
-			var texture = new THREE.TextureLoader().load( "sniper_sight.jpg" );
+			var texture = new THREE.TextureLoader().load( "sniper_sight.jpg" ),
 				geometry = new THREE.PlaneGeometry( 0.5, 0.5 ),
 				material = new THREE.MeshBasicMaterial({
 							color: 'black',
@@ -81,7 +92,7 @@
 							depthTest: false }),
 				sight = new THREE.Mesh( geometry, material );
 				sight.position.z = -2;
-				camera.add( sight );
+				VAX.camera.add( sight );
 				user.renderOrder = 1;
 							
 			// трасиращ лъч и център на екрана
@@ -97,10 +108,10 @@
 					allBalloons[i].position.y = 10 + 8*Math.sin( t/(3+i/10) + i*i );
 				
 				// трасиране на лъча на погледа ако сме в режим VR
-				if( renderer.xr.isPresenting )
+				if( VAX.renderer.xr.isPresenting )
 				{
 					// определяне на посоката на лъча
-					raycaster.setFromCamera( screenCenter, camera );
+					raycaster.setFromCamera( screenCenter, VAX.camera );
 					
 					// пресичане с балоните
 					var balloons = raycaster.intersectObjects( allBalloons );

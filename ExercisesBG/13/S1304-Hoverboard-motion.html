@@ -7,15 +7,26 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
-			camera = new THREE.PerspectiveCamera( 30, 1, 0.5, 600 );
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+			
+			VAX.initVR( animate );
+
+			VAX.camera.fov = 30;
+			VAX.camera.updateProjectionMatrix();
 
 			// земя
 			var ground = new THREE.Mesh(
@@ -26,38 +37,38 @@
 			ground.material.polygonOffsetUnits = 2;
 			ground.material.polygonOffsetFactor = 2;
 			ground.position.set( 0, -2, 0 );
-			scene.add( ground );
+			VAX.scene.add( ground );
 
 			// мрежа от квадратчета по земята
 			var grid = new THREE.GridHelper( 300, 30, 'white', 'white' );
 				grid.material.transparent = true;
 				grid.material.opacity = 0.3;
-			scene.add( grid );
+			VAX.scene.add( grid );
 			
 			// пилони 
 			for( var i=0; i<60; i++)
 			{
-				var p = pillar( new THREE.Vector3(THREE.Math.randFloat(-100,100),THREE.Math.randFloat(10,100),THREE.Math.randFloat(-100,100)),ground.material);
+				var p = new VAX.Pillar( new THREE.Vector3(THREE.MathUtils.randFloat(-100,100),THREE.MathUtils.randFloat(10,100),THREE.MathUtils.randFloat(-100,100)),ground.material);
 					p.scale.set( 0.1, 0.1, 0.1 );
-					scene.add( p );
+					VAX.scene.add( p );
 			}
 
 			// десен контролер
 			var right = false, // дали е натиснат десният спусък
-				rightController = renderer.xr.getController( 0 );
+				rightController = VAX.renderer.xr.getController( 0 );
 				rightController.addEventListener( 'selectstart', function(){ right = true; } );
 				rightController.addEventListener( 'selectend', function(){ right = false; } );
 
 			// ляв контролер
 			var left = false, // дали е натиснат левият спусък
-				leftController = renderer.xr.getController( 1 );
+				leftController = VAX.renderer.xr.getController( 1 );
 				leftController.addEventListener( 'selectstart', function(){ left = true; } );
 				leftController.addEventListener( 'selectend', function(){ left = false; } );
 			
 			// подвижен потребител
 			var user = new THREE.Group();
-				user.add( camera );
-				scene.add( user );
+				user.add( VAX.camera );
+				VAX.scene.add( user );
 				
 			var dir = new THREE.Vector3( 0, 0, -10 ), // вектор на движение
 				axisY = new THREE.Vector3( 0, 1, 0 ), // вертикална посока

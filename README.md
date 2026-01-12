@@ -1,5 +1,6 @@
 # Съдържание
 
+<!--
 ## Лекции
 - [Лекция №1 &ndash; Запознаване](#лекция-1--запознаване)
 - [Лекция №2 &ndash; Обекти](#лекция-2--обекти)
@@ -871,12 +872,13 @@
 
 [<kbd><img src="LecturesBG/12/E1216-Head-morphing.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/12/E1216-Head-morphing.html)
 
-
+-->
 
 
 
 ## Лекция №13 &ndash; VR шлемове
 
+<!--
 **E1301**. Емулиране на VR шлем.
 
 [<kbd><img src="LecturesBG/13/E1301-WebXR-emulator.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1301-WebXR-emulator.html)
@@ -888,27 +890,27 @@
 **E1303**. Центриране на гледната точка във VR куб.
 
 [<kbd><img src="LecturesBG/13/E1303-Centered-VR-cube.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1303-Centered-VR-cube.html)
-
+-->
 **E1304**. Двжение напред и назад в тунел.
 
 [<kbd><img src="LecturesBG/13/E1304-Tunnel.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1304-Tunnel.html)
-
+<!--
 **E1305**. Обработване на събитията на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1305-Controllers.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1305-Controllers.html)
-
+-->
 **E1306**. Задаване на потребителски образ на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1306-Controller-image.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1306-Controller-image.html)
-
+<!--
 **E1307**. Използване на фабричен 3D модел на контролерите.
 
 [<kbd><img src="LecturesBG/13/E1307-Controller-model.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1307-Controller-model.html)
-
+-->
 **E1308**. Движение чрез контролерите.
 
 [<kbd><img src="LecturesBG/13/E1308-Controller-motion.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1308-Controller-motion.html)
-
+<!--
 **E1309**. Избиране на обекти с поглед.
 
 [<kbd><img src="LecturesBG/13/E1309-Looking.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1309-Looking.html)
@@ -920,9 +922,46 @@
 **E1311**. Посочване на точка от сцената с контролер.
 
 [<kbd><img src="LecturesBG/13/E1311-Intersection-point.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1311-Intersection-point.html)
-
+-->
 **E1312**. Създаване на кубове с посочване с контролер.
 
 [<kbd><img src="LecturesBG/13/E1312-Creating-cubes.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/LecturesBG/13/E1312-Creating-cubes.html)
--->
 
+
+## Упражнение №13 &ndash; VR шлемове
+<!--
+**S1301**. Виртуален куб без диагонали.
+
+[<kbd><img src="ExercisesBG/13/S1301-No-diagonals.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1301-No-diagonals.html)
+-->
+**S1302**. Движение в тунел с текстура.
+
+[<kbd><img src="ExercisesBG/13/S1302-Nice-tunnel.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1302-Nice-tunnel.html)
+<!--
+**S1303**. Видими контролери.
+
+[<kbd><img src="ExercisesBG/13/S1303-Visual-controllers.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1303-Visual-controllers.html)
+
+**S1304**. Движение с двуколко (ховърборд).
+
+[<kbd><img src="ExercisesBG/13/S1304-Hoverboard-motion.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1304-Hoverboard-motion.html)
+
+**S1305**. Координатни системи на контролерите.
+
+[<kbd><img src="ExercisesBG/13/S1305-Coordinate-systems.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1305-Coordinate-systems.html)
+-->
+**S1306**. Движение в терен с дюни.
+
+[<kbd><img src="ExercisesBG/13/S1306-The-dunes.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1306-The-dunes.html)
+
+**S1307**. Снайпер, насочен с глава.
+
+[<kbd><img src="ExercisesBG/13/S1307-Sniper-sight.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1307-Sniper-sight.html)
+
+**S1308**. Движение по планетата на Малкият принц.
+
+[<kbd><img src="ExercisesBG/13/S1308-Le-petit-prince.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1308-Le-petit-prince.html)
+
+**S1309**. Пукане на баони със стрелба.
+
+[<kbd><img src="ExercisesBG/13/S1309-Popping-balloons.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1309-Popping-balloons.html)

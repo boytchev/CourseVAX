@@ -7,26 +7,39 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="GLTFExporter.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<a id="link" style="display: none;"></a>
-		<button onclick="exportObject()" style="position:fixed; z-index:10;">Export</button>
-		<script>
-			vaxInit( );
+		<button style="position:fixed; z-index:10;">Export</button>
+		<script type="module">
+			import * as THREE from "three";
+			import {FirstPersonControls} from "three/addons/controls/FirstPersonControls.js";
+			import {GLTFExporter} from "three/addons/exporters/GLTFExporter.js";
+			import {init, Pillar, renderer, object, scene, camera} from "vax";
+
+
+			document.getElementsByTagName('button')[0].addEventListener( 'click', exportObject );
+			
+			init( animate );
 
 			scene.background = new THREE.Color( 0, 0, 0 );
 			
 			// създаване на основното тяло
-			var geometry = new THREE.IcosahedronBufferGeometry( 21 ),
+			var geometry = new THREE.IcosahedronGeometry( 21 ),
 				material = new THREE.MeshStandardMaterial({
 									color: 'deeppink',
 									metalness: 0.8,
 									roughness: 0.5
-								});
+								}),
 				virus = new THREE.Mesh( geometry, material );
 
 			// създаване на онова там, не знам как се казва, стърчащото на вируса
@@ -41,13 +54,13 @@
 					y = (pos.getY(i) + pos.getY(i+1) + pos.getY(i+2)) / 3,
 					z = (pos.getZ(i) + pos.getZ(i+1) + pos.getZ(i+2)) / 3;
 					
-				// нормалният вектр към стената
+				// нормалният вектор към стената
 				var nx = x + nor.getX(i),
 					ny = y + nor.getY(i),
 					nz = z + nor.getZ(i);
 					
 				// създаваме пилон на това място
-				var p = pillar( new THREE.Vector3(0,30,0), material );
+				var p = new Pillar( new THREE.Vector3(0,30,0), material );
 					p.geometry.rotateX( Math.PI/2 );
 					p.scale.set( 0.3, 0.3, 0.3 );
 					p.position.set( x, y, z );
@@ -60,7 +73,7 @@
 			// искосаедъра има 20 стени, т.е. 20 пилона, а додекаедъра
 			// има 20 върха - по един за всеки пилон, за да са щастливи
 			var lines = new THREE.LineSegments(
-							new THREE.EdgesGeometry( new THREE.DodecahedronBufferGeometry( 26 ) ),
+							new THREE.EdgesGeometry( new THREE.DodecahedronGeometry( 26 ) ),
 							new THREE.LineBasicMaterial( {color: 'white', transparent: true, opacity: 0.5, depthWrite: false} )
 						);
 				lines.rotation.y = 5*Math.PI/10;
@@ -79,15 +92,20 @@
 			// запис на вируса
 			function exportObject()
 			{
-				var exporter = new THREE.GLTFExporter();
+				var exporter = new GLTFExporter();
 
 				exporter.parse( virus, function ( data )
 				{
-					link = document.getElementById( 'link' );
-					link.href = URL.createObjectURL( new Blob( [data], { type: 'application/octet-stream' } ) );
+					var link = document.createElement('a');
+					
+					var blob = new Blob( [data], { type: 'application/octet-stream' } );
+					
+					link.href = URL.createObjectURL( blob );
 					link.download = 'e1419.glb';
 					link.click();
-				}, {binary: true} );			
+				},
+				(error) => { throw error },
+				{binary: true} );			
 			}
 			
 		</script>	

@@ -7,27 +7,36 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+
+			VAX.initVR( animate );
 			
 			// създаване на куб 
 			var geometry = new THREE.BoxGeometry( 3, 3, 3, 10, 10, 10 ),
 				material = new THREE.MeshBasicMaterial( {color: 'black', wireframe: true} ),
 				cube = new THREE.Mesh( geometry, material );
 				cube.position.y = 1.5;
-				scene.add( cube );
+				VAX.scene.add( cube );
 
-			var rightController = renderer.xr.getController( 0 ),
-				rightControllerGrip = renderer.xr.getControllerGrip( 0 ),
-				leftController = renderer.xr.getController( 1 );
-				leftControllerGrip = renderer.xr.getControllerGrip( 1 );
-				scene.add( rightController, leftController, rightControllerGrip, leftControllerGrip );
+			var rightController = VAX.renderer.xr.getController( 0 ),
+				rightControllerGrip = VAX.renderer.xr.getControllerGrip( 0 ),
+				leftController = VAX.renderer.xr.getController( 1 ),
+				leftControllerGrip = VAX.renderer.xr.getControllerGrip( 1 );
+				VAX.scene.add( rightController, leftController, rightControllerGrip, leftControllerGrip );
 				
 			// координатни системи във всеки контролер
 			rightController.add( new THREE.AxesHelper(0.5) );

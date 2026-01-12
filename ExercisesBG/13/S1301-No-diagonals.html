@@ -7,19 +7,28 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
-		
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+			
+			VAX.initVR( animate );
+			
 			
 			// създаване на куб 
 			var cube = new THREE.Group();
-				scene.add( cube );
+				VAX.scene.add( cube );
 
 			// двойка противоположни стени
 			var pair = new THREE.Group();
@@ -51,10 +60,10 @@
 			function animate( t )
 			{
 				// само веднъж
-				if( !centered && renderer.xr.isPresenting )
+				if( !centered && VAX.renderer.xr.isPresenting )
 				{
 					// местим куба там, където е шлема
-					cube.position.y = renderer.xr.getCamera(camera).getWorldPosition(v).y;
+					cube.position.y = VAX.renderer.xr.getCamera(VAX.camera).getWorldPosition(v).y;
 
 					centered = cube.position.y != 0;
 				}

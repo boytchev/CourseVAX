@@ -7,15 +7,35 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="FirstPersonControls.js"></script>
-		<script src="ColladaLoader.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxSceneInit( 20 );
+		<script type="module">
+			import * as THREE from "three";
+			import {FirstPersonControls} from "three/addons/controls/FirstPersonControls.js";
+			import {ColladaLoader} from "three/addons/loaders/ColladaLoader.js";
+			import {initScene, Pillar, renderer, object, scene, camera} from "vax";
+
+			initScene(animate);
+
+			object.visible = false;
+				
+			// пилони
+			for( var i=0; i<20; i++)
+			{
+				var p = new Pillar( new THREE.Vector3(THREE.MathUtils.randFloat(-100,100),THREE.MathUtils.randFloat(10,100),THREE.MathUtils.randFloat(-100,100)) );
+					p.scale.set( 0.1, 0.1, 0.1 );
+					scene.add( p );
+			}
 				
 			scene.background = new THREE.Color( 'lightgray' );
 			
@@ -24,13 +44,13 @@
 				scene.add( light );
 				
 			// навигация
-			var control = new THREE.FirstPersonControls( camera, renderer.domElement );
+			var control = new FirstPersonControls( camera, renderer.domElement );
 				control.lookSpeed = 0.1;
 				control.movementSpeed = 10;
 				
 			// създаване на елф
-			var loader = new THREE.ColladaLoader( );
-				loader.load( 'Models/elf/elf.dae', objectLoaded );
+			var loader = new ColladaLoader( );
+				loader.load( '../Models/elf/elf.dae', objectLoaded );
 				
 			function objectLoaded( object )
 			{
@@ -41,9 +61,9 @@
 			{
 				control.update( dT );
 				
-				camera.position.x = THREE.Math.clamp( camera.position.x, -200, 200 );
-				camera.position.y = THREE.Math.clamp( camera.position.y, 2, 100 );
-				camera.position.z = THREE.Math.clamp( camera.position.z, -200, 200 );
+				camera.position.x = THREE.MathUtils.clamp( camera.position.x, -200, 200 );
+				camera.position.y = THREE.MathUtils.clamp( camera.position.y, 2, 100 );
+				camera.position.z = THREE.MathUtils.clamp( camera.position.z, -200, 200 );
 			}
 		</script>	
 	</body>

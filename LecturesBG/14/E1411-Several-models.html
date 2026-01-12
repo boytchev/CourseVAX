@@ -7,35 +7,44 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="FirstPersonControls.js"></script>
-		<script src="FBXLoader.js"></script>
-		<script src="OBJLoader.js"></script>
-		<script src="fflate.min.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxSceneInit( 0 );
+		<script type="module">
+			import * as THREE from "three";
+			import {FirstPersonControls} from "three/addons/controls/FirstPersonControls.js";
+			import {FBXLoader} from "three/addons/loaders/FBXLoader.js";
+			import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
+			import {initScene, Pillar, renderer, object, scene, camera, ambientLight, spotLight, ground} from "vax";
+
+			initScene(animate);
+
+			object.visible = false;
 				
 			scene.background = new THREE.Color( 'lightgray' );
 			
 			ambientLight.color = new THREE.Color( 'white' );
 			spotLight.position.set( -80, 40, 20 );
-			spotLight.intensity = 1;
+			spotLight.intensity = 3;
 
-			renderer.gammaFactor = 0.7;
-				
 			// навигация
-			var control = new THREE.FirstPersonControls( camera, renderer.domElement );
+			var control = new FirstPersonControls( camera, renderer.domElement );
 				control.lookSpeed = 0.1;
 				control.movementSpeed = 10;
 				
 			// създаване на Mei
 			var mei,
 				meiAnimator,
-				meiLoader = new THREE.FBXLoader().load( 'Models/sketchfab/mei/Mei_Run.fbx', meiLoaded );
+				meiLoader = new FBXLoader().load( '../Models/sketchfab/mei/Mei_Run.fbx', meiLoaded );
 			
 			function meiLoaded( object )
 			{
@@ -44,7 +53,7 @@
 				{
 					if( child.isMesh )
 					{
-						child.material.map.encoding = THREE.GammaEncoding;
+						child.material.map.colorSpace = THREE.LinearSRGBColorSpace;
 						child.castShadow = true;
 						child.receiveShadow = true;
 					}
@@ -58,12 +67,12 @@
 				meiAnimator.clipAction( mei.animations[0] ).play();
 			}
 
-			new THREE.OBJLoader().load( 'Models/sketchfab/trees/source/Stylized TreeA.obj', treeLoaded );
+			new OBJLoader().load( '../Models/sketchfab/trees/source/Stylized TreeA.obj', treeLoaded );
 			
 			function treeLoaded( tree )
 			{
-				tree.children[0].material.map = new THREE.TextureLoader().load( 'Models/sketchfab/trees/textures/TreeOF1.png' );
-				tree.children[0].material.alphaMap = new THREE.TextureLoader().load( 'Models/sketchfab/trees/textures/TreeOFAlpha.jpg' );
+				tree.children[0].material.map = new THREE.TextureLoader().load( '../Models/sketchfab/trees/textures/TreeOF1.png' );
+				tree.children[0].material.alphaMap = new THREE.TextureLoader().load( '../Models/sketchfab/trees/textures/TreeOFAlpha.jpg' );
 				tree.children[0].material.transparent = true;
 			
 				tree.children[1].material = ground.material;
@@ -96,9 +105,9 @@
 					mei.rotation.y = -t;
 				}
 				
-				camera.position.x = THREE.Math.clamp( camera.position.x, -200, 200 );
-				camera.position.y = THREE.Math.clamp( camera.position.y, 2, 100 );
-				camera.position.z = THREE.Math.clamp( camera.position.z, -200, 200 );
+				camera.position.x = THREE.MathUtils.clamp( camera.position.x, -200, 200 );
+				camera.position.y = THREE.MathUtils.clamp( camera.position.y, 2, 100 );
+				camera.position.z = THREE.MathUtils.clamp( camera.position.z, -200, 200 );
 			}
 			
 		</script>	

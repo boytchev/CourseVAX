@@ -7,24 +7,35 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="perlin.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
+			import { SimplexNoise } from "three/addons/math/SimplexNoise.js";
+
+			VAX.initVR( animate );
 
 			// синьо небе
-			scene.background = new THREE.Color( 'lightskyblue' );
-			light.position.set( 0, 100, 0 );
+			VAX.scene.background = new THREE.Color( 'lightskyblue' );
+			VAX.light.position.set( 0, 100, 0 );
 
 			// надморска височина на дюните
+			var simplex = new SimplexNoise( );
+			
 			function altitude( x, z )
 			{
-				return 15*perlin.get( x/50, z/50 );
+				return 7.5*simplex.noise( x/50, z/50 );
 			}
 			
 			// форма на дюните
@@ -50,20 +61,20 @@
 			var material = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, map: texture });
 
 			// вече правим самите дюни
-			scene.add( new THREE.Mesh( geometry, material ) );
+			VAX.scene.add( new THREE.Mesh( geometry, material ) );
 
 			// десен контролер
 			var move = false, // дали е натиснат десният спусък
-				rightController = renderer.xr.getController( 0 );
+				rightController = VAX.renderer.xr.getController( 0 );
 				rightController.addEventListener( 'selectstart', function(){ move = true; } );
 				rightController.addEventListener( 'selectend', function(){ move = false; } );
 			
 			// ние
 			var user = new THREE.Group();
-				user.add( camera );
-				scene.add( user );
+				user.add( VAX.camera );
+				VAX.scene.add( user );
 
-				camera.position.y = altitude(0,0)+1.6;
+				VAX.camera.position.y = altitude(0,0)+1.6;
 				
 			var v = new THREE.Vector3();
 			

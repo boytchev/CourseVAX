@@ -15,7 +15,7 @@
 	
 	<body>
 		<script>
-			vaxSceneInit( );
+			initScene( );
 				
 			scene.background = new THREE.Color( 'lightgray' );
 			
@@ -23,10 +23,10 @@
 			spotLight.position.set( 0, 60, 20 );
 			spotLight.intensity = 1;
 
-			const path = 'Models/sketchfab/phoenix/';
+			const path = '../Models/sketchfab/phoenix/';
 			
 			// навигация
-			var control = new THREE.FirstPersonControls( camera, renderer.domElement );
+			var control = new FirstPersonControls( camera, renderer.domElement );
 				control.lookSpeed = 0.1;
 				control.movementSpeed = 10;
 				
@@ -85,9 +85,9 @@
 				
 				if( phoenix ) phoenix.rotation.y = t;
 				
-				camera.position.x = THREE.Math.clamp( camera.position.x, -200, 200 );
-				camera.position.y = THREE.Math.clamp( camera.position.y, 2, 100 );
-				camera.position.z = THREE.Math.clamp( camera.position.z, -200, 200 );
+				camera.position.x = THREE.MathUtils.clamp( camera.position.x, -200, 200 );
+				camera.position.y = THREE.MathUtils.clamp( camera.position.y, 2, 100 );
+				camera.position.z = THREE.MathUtils.clamp( camera.position.z, -200, 200 );
 			}
 			
 		</script>	

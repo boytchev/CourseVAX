@@ -7,17 +7,27 @@
 		
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
-		<script src="three.min.js"></script>
-		<script src="VRButton.js"></script>
-		<script src="vax.js"></script>
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+			  "vax": "https://boytchev.github.io/CourseVAX/lib/vax.js"
+			}
+		  }
+		</script>
 	</head>
 	
 	<body>
-		<script>
-			vaxInitVR();
+		<script type="module">
+			import * as THREE from "three";
+			import * as VAX from "vax";
 			
-			scene.background = 'black';
-			scene.fog = new THREE.Fog( 'black', 0, 10 );
+			VAX.initVR( animate );
+			
+			
+			VAX.scene.background = 'black';
+			VAX.scene.fog = new THREE.Fog( 'black', 0, 10 );
 			
 			var texture = new THREE.TextureLoader().load( 'cube.png' );
 				texture.wrapS = THREE.RepeatWrapping;
@@ -29,7 +39,7 @@
 				material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.BackSide} ),
 				tunnel = new THREE.Mesh( geometry, material );
 				tunnel.position.y = 1.5;
-				scene.add( tunnel );
+				VAX.scene.add( tunnel );
 				
 			// създаване на двата края на тунела
 			// (заради текстурата - да не я променяме ръчно)
@@ -41,11 +51,11 @@
 				material = new THREE.MeshBasicMaterial( {map: texture} ),
 				side = new THREE.Mesh( geometry, material );
 				side.position.set( 0, 1.5, 15+4*0.3 );
-				scene.add( side );
+				VAX.scene.add( side );
 
 			side = side.clone();
 				side.position.set( 0, 1.5, -15-4*0.3 );
-				scene.add( side );
+				VAX.scene.add( side );
 
 			// единични кубчета, пръснати случайно
 			var texture = new THREE.TextureLoader().load( 'cube.png' );
@@ -57,19 +67,19 @@
 			
 			for( var i=0; i<150; i++ )
 			{
-				var x = -1.5+0.15 + 0.3*THREE.Math.randInt(0,9),
+				var x = -1.5+0.15 + 0.3*THREE.MathUtils.randInt(0,9),
 					y = 0.15,
-					z = THREE.Math.randInt(-140,140)*0.3+0.15;
+					z = THREE.MathUtils.randInt(-140,140)*0.3+0.15;
 					
-				box = new THREE.Mesh( geometry, material );
-				box.position.set( x, y, z );
-				scene.add( box );
+				var box = new THREE.Mesh( geometry, material );
+					box.position.set( x, y, z );
+				VAX.scene.add( box );
 			}
 			
 			
 			var user = new THREE.Group();
-				user.add( camera );
-				scene.add( user );
+				user.add( VAX.camera );
+				VAX.scene.add( user );
 			
 			function animate( t )
 			{
