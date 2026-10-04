@@ -6,8 +6,8 @@
 		<script type="importmap">
 		  {
 			"imports": {
-			  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
 			}
 		  }
 		</script>
@@ -18,19 +18,8 @@
 		<script type="module">
 		
 			import * as THREE from "three";
-			import WebGL from "three/addons/capabilities/WebGL.js";
-
-			// Проверяваме дали браузърът ни поддържа WebGL 1
-			if (!WebGL.isWebGLAvailable())
-				alert(WebGL.getWebGLErrorMessage());
-			else
-				alert('Има WebGL 1');
-
-			// Проверяваме дали браузърът ни поддържа WebGL 2
-			if (!WebGL.isWebGL2Available())
-				alert(WebGL.getWebGLErrorMessage());
-			else
-				alert('Има WebGL 2');
+			
+			alert(__THREE__);
 				
 		</script>
 	</body>
