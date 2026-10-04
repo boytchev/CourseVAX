@@ -53,6 +53,7 @@
 
 
 <!--
+
 ## Лекция №2 &ndash; Обекти
 
 **E0201**. Показване на скоростта на работа с библиотеката Stats.
@@ -938,7 +939,7 @@
 
 [<kbd><img src="ExercisesBG/13/S1302-Nice-tunnel.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1302-Nice-tunnel.html)
 
-<!--
+
 **S1303**. Видими контролери.
 
 [<kbd><img src="ExercisesBG/13/S1303-Visual-controllers.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1303-Visual-controllers.html)
@@ -966,3 +967,5 @@
 **S1309**. Пукане на баони със стрелба.
 
 [<kbd><img src="ExercisesBG/13/S1309-Popping-balloons.jpg" width="400"></kbd>](https://boytchev.github.io/CourseVAX/ExercisesBG/13/S1309-Popping-balloons.html)
+
+-->
