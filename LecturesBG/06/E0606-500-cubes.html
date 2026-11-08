@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>E0606: Двадесет кубчета 2</title>
+		<meta charset="utf-8">
+		
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<script type="importmap">
+		  {
+			"imports": {
+			  "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+			  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/",
+			  "physijs": "./physijs/physi.module.js",
+			  "vax": "./vax-physi.js"
+			}
+		  }
+		</script>
+	</head>
+	
+	<body>
+		<script type="module">
+
+			import * as THREE from "three";
+			import "physijs";
+			import * as VAX from "vax";
+
+			VAX.init(animate,{stats:true});
+
+			// светлина и сенки
+			VAX.light.shadow.mapSize = new THREE.Vector2(1024 * 2, 1024 * 2);
+			VAX.light.position.set(-150, 300, -50);
+			VAX.light.castShadow = true;
+
+			// по-добра позиция на камерата
+			VAX.camera.position.set(0, 180, 540);
+			VAX.camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+			// земя
+			geometry = new THREE.PlaneGeometry(400, 400, 5, 5);
+
+			var pos = geometry.getAttribute('position');
+			for (var i = 0; i < pos.count; i++)
+			{
+				var x = pos.getX(i);
+				var y = pos.getY(i);
+				pos.setZ(i, (x**2+y**2)**0.5-300);
+			}
+			geometry.computeVertexNormals();
+
+			material = Physijs.createMaterial(new THREE.MeshNormalMaterial({
+						transparent: true,
+						opacity: 0.3,
+						side: THREE.DoubleSide,
+					}), 1, 0);
+			var hill = new Physijs.HeightfieldMesh(geometry, material, 0, 5, 5);
+			hill.rotation.x = Math.PI/-2;
+			VAX.scene.add(hill);
+			
+
+			// кубчета
+			var geometry = new THREE.BoxGeometry(20, 20, 20),
+			material = Physijs.createMaterial(new THREE.MeshPhysicalMaterial({color: 'hotpink'}));
+
+			for (var i = 0; i < 300; i++)
+			{
+				var cube = new Physijs.BoxMesh(geometry, material);
+				cube.position.set(THREE.MathUtils.randFloat(-40, 40), 30+16*i, THREE.MathUtils.randFloat(-20, 20));
+				VAX.scene.add(cube);
+			}
+
+			function animate(t)
+			{
+				VAX.scene.simulate(1/30);
+				VAX.scene.rotation.y = t/10;
+			}
+			
+		</script>
+	</body>
+</html>
+
+
